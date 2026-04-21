@@ -14,10 +14,11 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Menú hamburguesa para mobile
+// Menú hamburguesa para mobile (con aria-expanded para a11y)
 hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
+    const isOpen = hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 });
 
 // Cerrar menú al hacer click en un enlace
@@ -25,6 +26,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
     });
 });
 
@@ -168,10 +170,12 @@ document.querySelectorAll('.btn').forEach(button => {
     });
 });
 
-// ======== TRACKING DE EVENTOS (para analytics futuro) ========
-function trackEvent(eventName, element) {
-    console.log('Event tracked:', eventName, element);
-    // Aquí se integraría con Google Analytics u otro servicio
+// ======== TRACKING DE EVENTOS (US-10: Google Analytics 4) ========
+function trackEvent(eventName, payload) {
+    if (typeof gtag === 'function') {
+        gtag('event', eventName, payload || {});
+    }
+    console.log('[track]', eventName, payload);
 }
 
 // Trackear clicks en botones CTA
@@ -201,14 +205,131 @@ if ('IntersectionObserver' in window) {
     });
 }
 
+// ======== ROTACIÓN DE TESTIMONIOS (US-04) ========
+// En móvil destaca un testimonio a la vez cada 5 segundos.
+(function initTestimonialRotation() {
+    const grid = document.getElementById('testimonialsGrid');
+    if (!grid) return;
+    const interval = parseInt(grid.dataset.rotate || '5000', 10);
+    const items = grid.querySelectorAll('.testimonial');
+    if (items.length < 2) return;
+    let active = 0;
+    items[0].classList.add('is-active');
+
+    setInterval(() => {
+        items[active].classList.remove('is-active');
+        active = (active + 1) % items.length;
+        items[active].classList.add('is-active');
+    }, interval);
+})();
+
+// ======== FAQ ACCORDION (US-06) ========
+// Abrir solo un item a la vez (mejora UX); <details> ya cubre el fallback sin JS.
+document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+        if (item.open) {
+            document.querySelectorAll('.faq-item').forEach(other => {
+                if (other !== item) other.removeAttribute('open');
+            });
+            trackEvent('faq_open', { question: item.querySelector('summary')?.textContent?.trim() });
+        }
+    });
+});
+
+// ======== FORMULARIO DE PRE-REGISTRO (US-05, US-08) ========
+(function initPreRegisterForm() {
+    const form = document.getElementById('preRegisterForm');
+    if (!form) return;
+    const feedback = form.querySelector('#formFeedback');
+    const userTypeInput = form.querySelector('#userType');
+    const toggleButtons = form.querySelectorAll('.toggle-option');
+
+    // Toggle cliente / trabajador — cambia el tipo que se envía al backend
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            toggleButtons.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            const type = btn.dataset.type;
+            userTypeInput.value = type;
+            document.body.classList.toggle('mode-trabajador', type === 'trabajador');
+            trackEvent('pre_register_mode', { type });
+        });
+    });
+
+    // Si alguien clickea el CTA "Soy trabajador" en la sección workers, preselecciona el toggle
+    document.querySelectorAll('[data-user-type="trabajador"]').forEach(link => {
+        link.addEventListener('click', () => {
+            const trabajadorBtn = form.querySelector('[data-type="trabajador"]');
+            if (trabajadorBtn) trabajadorBtn.click();
+        });
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        feedback.className = 'form-feedback';
+        feedback.textContent = '';
+
+        // Validación mínima
+        const data = Object.fromEntries(new FormData(form).entries());
+        const fields = form.querySelectorAll('.form-field');
+        fields.forEach(f => f.classList.remove('invalid'));
+
+        let valid = true;
+        if (!data.fullName || data.fullName.trim().length < 3) { valid = false; markInvalid(form, 'fullName'); }
+        if (!validateEmail(data.email || '')) { valid = false; markInvalid(form, 'email'); }
+        if (!validatePhone(data.phone || '')) { valid = false; markInvalid(form, 'phone'); }
+        if (!data.district) { valid = false; markInvalid(form, 'district'); }
+        if (data.userType === 'trabajador' && !data.trade) { valid = false; markInvalid(form, 'trade'); }
+        if (!form.querySelector('[name="consent"]').checked) {
+            valid = false;
+            feedback.classList.add('error');
+            feedback.textContent = 'Debes aceptar los términos para continuar.';
+            return;
+        }
+
+        if (!valid) {
+            feedback.classList.add('error');
+            feedback.textContent = 'Revisa los campos marcados en rojo.';
+            return;
+        }
+
+        // Simulación de envío (backend aún no existe). En prod, POST a API + manejar 409 / 5xx.
+        try {
+            feedback.textContent = 'Enviando…';
+            await new Promise(r => setTimeout(r, 600));
+            trackEvent('pre_register_submit', { type: data.userType, district: data.district });
+            feedback.classList.add('success');
+            feedback.textContent = '¡Listo! Te avisaremos apenas abramos el registro.';
+            form.reset();
+            document.body.classList.remove('mode-trabajador');
+            form.querySelector('[data-type="usuario"]').click();
+        } catch (err) {
+            feedback.classList.add('error');
+            feedback.textContent = 'No pudimos enviar tu solicitud. Intenta nuevamente.';
+        }
+    });
+
+    function markInvalid(form, name) {
+        const field = form.querySelector(`[name="${name}"]`)?.closest('.form-field');
+        if (field) field.classList.add('invalid');
+    }
+})();
+
 // ======== INICIALIZACIÓN ========
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Ya Quedó - Landing page cargada exitosamente');
-    
+
     // Animación inicial del hero
     setTimeout(() => {
-        document.querySelector('.hero-content').classList.add('loaded');
+        const hc = document.querySelector('.hero-content');
+        if (hc) hc.classList.add('loaded');
     }, 100);
+
+    trackEvent('page_view', { page: 'landing' });
 });
 
 // ======== MANEJO DE ERRORES ========

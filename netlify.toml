@@ -1,0 +1,27 @@
+# Configuración de despliegue en Netlify (alternativa a GitHub Pages).
+# Conecta este repo en https://app.netlify.com/start y Netlify detectará esta config.
+
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self), camera=(), microphone=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://www.google-analytics.com"
+
+# Redirección amigable: /terminos → terms.html, /privacidad → privacy.html
+[[redirects]]
+  from = "/terminos"
+  to = "/terms.html"
+  status = 301
+
+[[redirects]]
+  from = "/privacidad"
+  to = "/privacy.html"
+  status = 301
