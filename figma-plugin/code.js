@@ -1180,9 +1180,120 @@
     });
 
     // =========================================================================
-    // 9) MOBILE LANDING — esqueleto con labels (el usuario lo rellena siguiendo
-    //    04-screens-mobile.md usando el mismo esquema del desktop)
+    // 9) COMPONENTE Navbar/Mobile (logo + switcher ES/EN + hamburger)
     // =========================================================================
+    var navbarMobile = figma.createComponent();
+    navbarMobile.name = 'Navbar/Mobile';
+    navbarMobile.resize(375, 70);
+    navbarMobile.layoutMode = 'HORIZONTAL';
+    navbarMobile.primaryAxisAlignItems = 'SPACE_BETWEEN';
+    navbarMobile.counterAxisAlignItems = 'CENTER';
+    navbarMobile.primaryAxisSizingMode = 'FIXED';
+    navbarMobile.counterAxisSizingMode = 'FIXED';
+    navbarMobile.paddingLeft = 16; navbarMobile.paddingRight = 16;
+    navbarMobile.fills = [solidFill('#FFFFFF', 0.95)];
+    if (effectStyles['Shadow/sm']) navbarMobile.effectStyleId = effectStyles['Shadow/sm'].id;
+    navbarMobile.x = componentsX + 700; navbarMobile.y = componentsY;
+
+    var mLogo = figma.createText();
+    mLogo.fontName = { family: fontFamily, style: resolveStyle('Extra Bold') };
+    mLogo.fontSize = 22;
+    mLogo.characters = 'Ya Quedó';
+    mLogo.fills = [solidFill('#6366F1')];
+    navbarMobile.appendChild(mLogo);
+
+    var mRight = makeFrame(navbarMobile, {
+        bg: null, dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        gap: 12, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mRight.fills = [];
+
+    // Switcher compacto ES/EN
+    var mSwitcher = makeFrame(mRight, {
+        bg: '#F3F4F6', radius: 999,
+        dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 2, paddingH: 2, gap: 1,
+        primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    var mEs = makeFrame(mSwitcher, {
+        bg: '#FFFFFF', radius: 999,
+        dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 3, paddingH: 8,
+        primarySizing: 'AUTO', counterSizing: 'AUTO',
+        shadow: 'Shadow/sm'
+    });
+    makeText(mEs, 'ES', { size: 11, weight: 'Bold', color: '#6366F1' });
+    var mEn = makeFrame(mSwitcher, {
+        bg: null, radius: 999,
+        dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 3, paddingH: 8,
+        primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mEn.fills = [];
+    makeText(mEn, 'EN', { size: 11, weight: 'Bold', color: '#6B7280' });
+
+    // Hamburguesa (3 líneas)
+    var mHamb = makeFrame(mRight, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        padding: 6, gap: 4,
+        primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mHamb.fills = [];
+    for (var hh = 0; hh < 3; hh++) {
+        var bar = makeFrame(mHamb, {
+            bg: '#1F2937', radius: 2,
+            w: 22, h: 3,
+            primarySizing: 'FIXED', counterSizing: 'FIXED'
+        });
+    }
+
+    // =========================================================================
+    // 10) MOBILE LANDING — 14 SECCIONES POBLADAS (1 columna, 375px)
+    // =========================================================================
+    function sectionM(parent, opts) {
+        opts = opts || {};
+        return makeFrame(parent, {
+            name: opts.name,
+            w: 375, h: opts.h,
+            bg: opts.bg || null,
+            bgGradient: opts.bgGradient,
+            dir: 'VERTICAL',
+            primaryAlign: 'CENTER', counterAlign: 'CENTER',
+            paddingV: opts.padV != null ? opts.padV : 48,
+            paddingH: opts.padH != null ? opts.padH : 16,
+            gap: opts.gap || 20,
+            primarySizing: 'FIXED', counterSizing: 'FIXED',
+            clip: true
+        });
+    }
+
+    function titleM(parent, h2Text, subtitle, dark) {
+        var holder = makeFrame(parent, {
+            bg: null, dir: 'VERTICAL',
+            primaryAlign: 'CENTER', counterAlign: 'CENTER',
+            gap: 8, primarySizing: 'AUTO', counterSizing: 'AUTO'
+        });
+        holder.fills = [];
+        makeText(holder, h2Text, {
+            size: 28, weight: 'Bold', color: dark ? '#FFFFFF' : '#1F2937',
+            align: 'CENTER', w: 343
+        });
+        if (subtitle) {
+            makeText(holder, subtitle, {
+                size: 14, weight: 'Regular',
+                color: dark ? '#FFFFFF' : '#6B7280',
+                opacity: dark ? 0.9 : 1,
+                align: 'CENTER', w: 343
+            });
+        }
+        return holder;
+    }
+
     var mobile = figma.createFrame();
     mobile.name = '📱 Mobile · Landing';
     mobile.resize(375, 10);
@@ -1195,44 +1306,522 @@
     mobile.counterAxisAlignItems = 'CENTER';
     mobile.clipsContent = true;
 
-    var mobileSections = [
-        ['Navbar',        70,   '#FFFFFF', '#1F2937'],
-        ['Hero',          480,  null,      '#FFFFFF', ['#667EEA', '#764BA2', 135]],
-        ['Problema',      720,  '#F3F4F6', '#1F2937'],
-        ['Solución',      680,  '#FFFFFF', '#1F2937'],
-        ['Cómo funciona', 1200, '#F3F4F6', '#1F2937'],
-        ['Servicios',     1400, '#FFFFFF', '#1F2937'],
-        ['Beneficios',    1400, '#FFFFFF', '#1F2937'],
-        ['Características', 1800, '#F3F4F6', '#1F2937'],
-        ['Trabajadores',  1100, '#F3F4F6', '#1F2937'],
-        ['Impacto',       700,  null,      '#FFFFFF', ['#6366F1', '#4F46E5', 135]],
-        ['Testimonios',   900,  '#F3F4F6', '#1F2937'],
-        ['FAQ',           900,  '#FFFFFF', '#1F2937'],
-        ['Pre-registro',  900,  null,      '#FFFFFF', ['#EC4899', '#10B981', 135]],
-        ['Footer',        850,  '#1F2937', '#FFFFFF']
+    // -------- Navbar mobile (instancia)
+    var navMobileInst = navbarMobile.createInstance();
+    mobile.appendChild(navMobileInst);
+
+    // -------- Hero mobile
+    var mHero = sectionM(mobile, {
+        name: 'Hero',
+        bgGradient: ['#667EEA', '#764BA2', 135],
+        h: 520, padV: 72, gap: 16
+    });
+    makeText(mHero, 'Encuentra el servicio que necesitas, al instante', {
+        size: 30, weight: 'Bold', color: '#FFFFFF',
+        align: 'CENTER', w: 343
+    });
+    makeText(mHero, 'Conectamos personas con trabajadores independientes de confianza en el Perú.', {
+        size: 15, weight: 'Regular', color: '#FFFFFF', opacity: 0.9,
+        align: 'CENTER', w: 343
+    });
+    var mHeroBtns = makeFrame(mHero, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        gap: 12, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mHeroBtns.fills = [];
+    var mBtn1 = button(mHeroBtns, 'Buscar servicio', 'cta-primary');
+    mBtn1.resize(300, mBtn1.height);
+    mBtn1.primaryAxisSizingMode = 'FIXED';
+    var mBtn2 = button(mHeroBtns, 'Ofrecer mis servicios', 'cta-secondary');
+    mBtn2.resize(300, mBtn2.height);
+    mBtn2.primaryAxisSizingMode = 'FIXED';
+
+    // -------- Problema mobile (3 cards stacked)
+    var mProblem = sectionM(mobile, { name: 'Problema', bg: '#F3F4F6', h: 820 });
+    titleM(mProblem, 'El desafío que enfrentamos', 'La informalidad laboral en el Perú afecta a millones');
+    var mProbList = makeFrame(mProblem, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 16, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mProbList.fills = [];
+    var mProbCards = [
+        ['🔍', 'Dificultad para encontrar servicios', 'Los clientes pierden tiempo buscando profesionales confiables.'],
+        ['$',  'Precios poco transparentes',           'Falta de claridad en costos y temor a estafas.'],
+        ['💼', 'Informalidad laboral',                 'Más del 60% de los trabajadores no tienen beneficios.']
     ];
-    for (var ms = 0; ms < mobileSections.length; ms++) {
-        var msData = mobileSections[ms];
-        var mSec = makeFrame(mobile, {
-            name: msData[0],
-            w: 375, h: msData[1],
-            bg: msData[2],
-            bgGradient: msData[4] || null,
-            dir: 'VERTICAL',
-            primaryAlign: 'CENTER', counterAlign: 'CENTER',
-            primarySizing: 'FIXED', counterSizing: 'FIXED'
-        });
-        makeText(mSec, msData[0], { size: 18, weight: 'Bold', color: msData[3] });
+    for (var mp = 0; mp < mProbCards.length; mp++) {
+        var mpc = card(mProbList, { w: 343, padding: 20, gap: 10 });
+        iconCircle(mpc, 48, null, mProbCards[mp][0], '#FFFFFF', ['#EC4899', '#10B981', 135]);
+        makeText(mpc, mProbCards[mp][1], { size: 18, weight: 'Bold', color: '#1F2937', w: 303 });
+        makeText(mpc, mProbCards[mp][2], { size: 14, weight: 'Regular', color: '#6B7280', w: 303 });
     }
 
+    // -------- Solución mobile (stack: texto + card visual)
+    var mSolution = sectionM(mobile, { name: 'Solución', bg: '#FFFFFF', h: 800 });
+    var mSolText = makeFrame(mSolution, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'MIN',
+        gap: 12, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mSolText.fills = [];
+    makeText(mSolText, 'La solución: Ya Quedó', { size: 16, weight: 'Bold', color: '#6366F1' });
+    makeText(mSolText, 'Transformando la forma de conectar servicios locales', {
+        size: 26, weight: 'Bold', color: '#1F2937', w: 343
+    });
+    makeText(mSolText, 'Plataforma que revoluciona el mercado de servicios informales con confianza, rapidez y formalización.', {
+        size: 14, weight: 'Regular', color: '#6B7280', w: 343
+    });
+    var mSolFeat = ['Verificación de identidad', 'Sistema de calificación', 'Pagos seguros', 'Capacitación', 'Geolocalización'];
+    var mSolList = makeFrame(mSolText, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'MIN',
+        gap: 8, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mSolList.fills = [];
+    for (var msf = 0; msf < mSolFeat.length; msf++) {
+        var mRowSol = makeFrame(mSolList, {
+            bg: null, dir: 'HORIZONTAL',
+            primaryAlign: 'MIN', counterAlign: 'CENTER',
+            gap: 8, primarySizing: 'AUTO', counterSizing: 'AUTO'
+        });
+        mRowSol.fills = [];
+        makeText(mRowSol, '✓', { size: 16, weight: 'Bold', color: '#10B981' });
+        makeText(mRowSol, mSolFeat[msf], { size: 14, weight: 'Regular', color: '#1F2937' });
+    }
+    var mSolCard = makeFrame(mSolution, {
+        bg: null, bgGradient: ['#6366F1', '#4F46E5', 135],
+        radius: 16, dir: 'VERTICAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        gap: 8, padding: 24,
+        primarySizing: 'FIXED', counterSizing: 'FIXED',
+        w: 343, h: 220,
+        shadow: 'Shadow/lg'
+    });
+    makeText(mSolCard, 'YQ', { size: 48, weight: 'Extra Bold', color: '#FFFFFF' });
+    makeText(mSolCard, 'Tecnología para el progreso', { size: 18, weight: 'Bold', color: '#FFFFFF', align: 'CENTER' });
+    makeText(mSolCard, 'IA y algoritmos para conectar a las personas correctas', {
+        size: 13, weight: 'Regular', color: '#FFFFFF', opacity: 0.9, align: 'CENTER', w: 280
+    });
+
+    // -------- Cómo funciona mobile
+    var mHow = sectionM(mobile, { name: 'Cómo funciona', bg: '#F3F4F6', h: 1260 });
+    titleM(mHow, 'Así de fácil funciona', 'En solo 4 pasos simples');
+    var mHowList = makeFrame(mHow, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 16, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mHowList.fills = [];
+    var mSteps = [
+        ['1', 'Regístrate gratis', 'Crea tu perfil en menos de 2 minutos. Verificamos tu identidad.'],
+        ['2', 'Busca o publica', 'Encuentra profesionales cercanos o publica tu servicio.'],
+        ['3', 'Coordina y confirma', 'Chatea, acuerda detalles y confirma con pago seguro.'],
+        ['4', 'Califica y repite', 'Al finalizar, califica el servicio y ayuda a la comunidad.']
+    ];
+    for (var mss = 0; mss < mSteps.length; mss++) {
+        var mStepCard = card(mHowList, { w: 343, padding: 24, gap: 12, center: true });
+        iconCircle(mStepCard, 48, null, mSteps[mss][0], '#FFFFFF', ['#6366F1', '#4F46E5', 135]);
+        makeText(mStepCard, mSteps[mss][1], { size: 18, weight: 'Bold', color: '#1F2937', align: 'CENTER', w: 295 });
+        makeText(mStepCard, mSteps[mss][2], { size: 14, weight: 'Regular', color: '#6B7280', align: 'CENTER', w: 295 });
+    }
+
+    // -------- Servicios mobile
+    var mServ = sectionM(mobile, { name: 'Servicios', bg: '#FFFFFF', h: 1500 });
+    titleM(mServ, 'Servicios disponibles', '6 categorías iniciales para tu casa');
+    var mServList = makeFrame(mServ, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 12, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mServList.fills = [];
+    var mServData = [
+        ['⚡', 'Electricidad',       'Instalación, reparación y mantenimiento certificado.'],
+        ['🔧', 'Gasfitería',         'Fugas, desatoros y reparación de tuberías.'],
+        ['🎨', 'Pintura',            'Interiores y exteriores con acabados profesionales.'],
+        ['🔑', 'Cerrajería',         'Emergencias 24/7, cambio de cerraduras.'],
+        ['🧯', 'Electrodomésticos', 'Reparación de lavadoras, refris, microondas.'],
+        ['🧹', 'Limpieza técnica',  'Tanques, aires acondicionados, fachadas.']
+    ];
+    for (var mSv = 0; mSv < mServData.length; mSv++) {
+        var mSvCard = card(mServList, {
+            w: 343, padding: 20, gap: 10,
+            stroke: '#F3F4F6', shadow: 'Shadow/sm'
+        });
+        iconSquare(mSvCard, 48, ['#6366F1', '#4F46E5', 135], mServData[mSv][0]);
+        makeText(mSvCard, mServData[mSv][1], { size: 18, weight: 'Bold', color: '#1F2937' });
+        makeText(mSvCard, mServData[mSv][2], { size: 14, weight: 'Regular', color: '#6B7280', w: 303 });
+    }
+
+    // -------- Beneficios mobile (2 grupos stacked)
+    var mBen = sectionM(mobile, { name: 'Beneficios', bg: '#FFFFFF', h: 1600 });
+    titleM(mBen, 'Beneficios para todos', 'Diseñado para clientes y trabajadores');
+    var mBenWrap = makeFrame(mBen, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 24, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mBenWrap.fills = [];
+    var mBenGroups = [
+        ['🎯 Para Clientes', ['Ahorra tiempo con profesionales verificados', 'Precios transparentes y competitivos',
+                               'Protección con pagos seguros', 'Calificaciones reales de otros usuarios',
+                               'Atención inmediata y geolocalización', 'Garantía de satisfacción']],
+        ['💼 Para Trabajadores', ['Más clientes sin costo de marketing', 'Pagos seguros y rápidos',
+                                   'Construye tu reputación profesional', 'Capacitación gratuita y certificaciones',
+                                   'Flexibilidad de horarios', 'Camino a la formalización laboral']]
+    ];
+    for (var mbg = 0; mbg < mBenGroups.length; mbg++) {
+        var mBenCol = makeFrame(mBenWrap, {
+            bg: null, dir: 'VERTICAL',
+            primaryAlign: 'MIN', counterAlign: 'CENTER',
+            gap: 10, primarySizing: 'AUTO', counterSizing: 'FIXED',
+            w: 343
+        });
+        mBenCol.fills = [];
+        makeText(mBenCol, mBenGroups[mbg][0], { size: 20, weight: 'Bold', color: '#6366F1', align: 'CENTER', w: 343 });
+        for (var mbi = 0; mbi < mBenGroups[mbg][1].length; mbi++) {
+            var mBenItem = makeFrame(mBenCol, {
+                bg: '#F3F4F6', radius: 8,
+                dir: 'HORIZONTAL',
+                primaryAlign: 'MIN', counterAlign: 'CENTER',
+                padding: 12, gap: 8,
+                primarySizing: 'FIXED', counterSizing: 'AUTO',
+                w: 343
+            });
+            mBenItem.strokes = [solidFill('#6366F1')];
+            mBenItem.strokeWeight = 0;
+            mBenItem.strokeLeftWeight = 4;
+            mBenItem.strokeAlign = 'INSIDE';
+            makeText(mBenItem, mBenGroups[mbg][1][mbi], { size: 13, weight: 'Regular', color: '#1F2937', w: 300 });
+        }
+    }
+
+    // -------- Características mobile
+    var mFeat = sectionM(mobile, { name: 'Características', bg: '#F3F4F6', h: 1900 });
+    titleM(mFeat, 'Características únicas', 'Tecnología al servicio de la comunidad');
+    var mFeatList = makeFrame(mFeat, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 16, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mFeatList.fills = [];
+    var mFeatData = [
+        ['📍', 'Geolocalización',       'Profesionales cerca de ti en tiempo real'],
+        ['⭐', 'Sistema de Reputación', 'Calificaciones transparentes y reales'],
+        ['🔒', 'Pagos Seguros',         'Transacciones protegidas con reembolso'],
+        ['✅', 'Perfiles Verificados',  'Verificación de identidad y habilidades'],
+        ['🎓', 'Capacitación',          'Cursos gratuitos y certificaciones'],
+        ['💬', 'Chat Integrado',        'Comunicación directa y segura']
+    ];
+    for (var mfd = 0; mfd < mFeatData.length; mfd++) {
+        var mFeatCard = card(mFeatList, { w: 343, padding: 24, gap: 12, center: true });
+        iconCircle(mFeatCard, 64, null, mFeatData[mfd][0], '#FFFFFF', ['#EC4899', '#10B981', 135]);
+        makeText(mFeatCard, mFeatData[mfd][1], { size: 18, weight: 'Bold', color: '#1F2937', align: 'CENTER', w: 295 });
+        makeText(mFeatCard, mFeatData[mfd][2], { size: 14, weight: 'Regular', color: '#6B7280', align: 'CENTER', w: 295 });
+    }
+
+    // -------- Trabajadores mobile
+    var mWork = sectionM(mobile, { name: 'Trabajadores', bg: '#F3F4F6', h: 1200 });
+    var mWorkText = makeFrame(mWork, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'MIN',
+        gap: 12, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mWorkText.fills = [];
+    chip(mWorkText, 'Para trabajadores', '#818CF8', '#FFFFFF');
+    makeText(mWorkText, 'Más clientes, pagos seguros y reputación que crece contigo', {
+        size: 24, weight: 'Bold', color: '#1F2937', w: 343
+    });
+    makeText(mWorkText, 'Electricistas, gasfiteros, pintores, cerrajeros o técnicos. Tú defines tus tarifas, nosotros garantizamos el cobro.', {
+        size: 14, weight: 'Regular', color: '#6B7280', w: 343
+    });
+    var mWorkBenefits = [
+        ['👥', 'Clientes constantes en tu distrito'],
+        ['🛡', 'Pago garantizado'],
+        ['🏅', 'Insignias y ranking'],
+        ['🎓', 'Capacitaciones con certificación'],
+        ['📱', 'Agenda desde tu celular']
+    ];
+    var mWorkList = makeFrame(mWorkText, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'MIN',
+        gap: 8, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mWorkList.fills = [];
+    for (var mwb = 0; mwb < mWorkBenefits.length; mwb++) {
+        var mwRow = makeFrame(mWorkList, {
+            bg: null, dir: 'HORIZONTAL',
+            primaryAlign: 'MIN', counterAlign: 'CENTER',
+            gap: 10, primarySizing: 'AUTO', counterSizing: 'AUTO'
+        });
+        mwRow.fills = [];
+        iconCircle(mwRow, 28, null, mWorkBenefits[mwb][0], '#FFFFFF', ['#EC4899', '#10B981', 135]);
+        makeText(mwRow, mWorkBenefits[mwb][1], { size: 14, weight: 'Regular', color: '#1F2937', w: 280 });
+    }
+    var mWorkBtn = button(mWorkText, 'Ofrecer mis servicios', 'primary');
+    mWorkBtn.resize(343, mWorkBtn.height);
+    mWorkBtn.primaryAxisSizingMode = 'FIXED';
+
+    var mStatsList = makeFrame(mWork, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 12, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mStatsList.fills = [];
+    var mWorkStats = [
+        ['+40%', 'Ingresos promedio tras 3 meses'],
+        ['48h',  'Verificación de identidad'],
+        ['0%',   'Costo de registro']
+    ];
+    for (var msx = 0; msx < mWorkStats.length; msx++) {
+        var mStatCard = card(mStatsList, { w: 343, padding: 20, gap: 4 });
+        mStatCard.strokes = [solidFill('#6366F1')];
+        mStatCard.strokeWeight = 0;
+        mStatCard.strokeLeftWeight = 4;
+        mStatCard.strokeAlign = 'INSIDE';
+        makeText(mStatCard, mWorkStats[msx][0], { size: 28, weight: 'Extra Bold', color: '#6366F1' });
+        makeText(mStatCard, mWorkStats[msx][1], { size: 13, weight: 'Regular', color: '#6B7280', w: 303 });
+    }
+
+    // -------- Impacto mobile
+    var mImp = sectionM(mobile, { name: 'Impacto', bgGradient: ['#6366F1', '#4F46E5', 135], h: 720 });
+    titleM(mImp, 'Impacto social real', 'Transformamos la economía informal', true);
+    var mImpGrid = makeFrame(mImp, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 24, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mImpGrid.fills = [];
+    var mImpRow1 = makeFrame(mImpGrid, {
+        bg: null, dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        gap: 32, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mImpRow1.fills = [];
+    var mImpRow2 = makeFrame(mImpGrid, {
+        bg: null, dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        gap: 32, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mImpRow2.fills = [];
+    var mImpStats = [['60%+', 'Informales en LATAM'], ['2M+', 'Servicios conectados'], ['15', 'Países'], ['98%', 'Satisfacción']];
+    for (var mis = 0; mis < mImpStats.length; mis++) {
+        var target = mis < 2 ? mImpRow1 : mImpRow2;
+        var mStatItem = makeFrame(target, {
+            bg: null, dir: 'VERTICAL',
+            primaryAlign: 'CENTER', counterAlign: 'CENTER',
+            gap: 4, primarySizing: 'AUTO', counterSizing: 'AUTO'
+        });
+        mStatItem.fills = [];
+        makeText(mStatItem, mImpStats[mis][0], { size: 40, weight: 'Extra Bold', color: '#FFFFFF', align: 'CENTER' });
+        makeText(mStatItem, mImpStats[mis][1], { size: 12, weight: 'Regular', color: '#FFFFFF', opacity: 0.9, align: 'CENTER', w: 130 });
+    }
+
+    // -------- Testimonios mobile
+    var mTest = sectionM(mobile, { name: 'Testimonios', bg: '#F3F4F6', h: 1000 });
+    titleM(mTest, 'Lo que dicen nuestros usuarios', 'Historias reales de éxito');
+    var mTestList = makeFrame(mTest, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 16, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mTestList.fills = [];
+    var mTestData = [
+        ['"Pasé de 2 clientes por semana a más de 20. Mi ingreso se triplicó."', 'MC', 'María Carmen R.', 'Electricista · San Miguel'],
+        ['"Encontré un gasfitero confiable en 10 minutos. Servicio excelente."', 'JL', 'Juan López', 'Cliente · Surco'],
+        ['"La capacitación me ayudó. Ahora tengo insignia Top Rated."', 'RG', 'Roberto Gómez', 'Técnico · Los Olivos']
+    ];
+    for (var mtd = 0; mtd < mTestData.length; mtd++) {
+        var mTestCard = card(mTestList, { w: 343, padding: 20, gap: 14 });
+        makeText(mTestCard, '"', { size: 36, weight: 'Bold', color: '#6366F1', opacity: 0.3 });
+        makeText(mTestCard, mTestData[mtd][0], { size: 14, weight: 'Regular', color: '#1F2937', w: 303 });
+        var mAuthorRow = makeFrame(mTestCard, {
+            bg: null, dir: 'HORIZONTAL',
+            primaryAlign: 'MIN', counterAlign: 'CENTER',
+            gap: 10, primarySizing: 'AUTO', counterSizing: 'AUTO'
+        });
+        mAuthorRow.fills = [];
+        iconCircle(mAuthorRow, 40, null, mTestData[mtd][1], '#FFFFFF', ['#EC4899', '#10B981', 135]);
+        var mAuthorInfo = makeFrame(mAuthorRow, {
+            bg: null, dir: 'VERTICAL',
+            primaryAlign: 'MIN', counterAlign: 'MIN',
+            gap: 2, primarySizing: 'AUTO', counterSizing: 'AUTO'
+        });
+        mAuthorInfo.fills = [];
+        makeText(mAuthorInfo, mTestData[mtd][2], { size: 14, weight: 'Bold', color: '#1F2937' });
+        makeText(mAuthorInfo, mTestData[mtd][3], { size: 12, weight: 'Regular', color: '#6B7280' });
+    }
+
+    // -------- FAQ mobile
+    var mFaq = sectionM(mobile, { name: 'FAQ', bg: '#FFFFFF', h: 1000 });
+    titleM(mFaq, 'Preguntas frecuentes', 'Resolvemos las dudas más comunes');
+    var mFaqList = makeFrame(mFaq, {
+        bg: null, dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        gap: 10, primarySizing: 'AUTO', counterSizing: 'AUTO'
+    });
+    mFaqList.fills = [];
+    var mFaqs = [
+        ['¿Cómo sé que un trabajador es confiable?', 'Verificación de DNI y reseñas de servicios reales.'],
+        ['¿Cuánto cuesta registrarme?', 'Gratis. Solo cobramos comisión por servicio completado.'],
+        ['¿Qué medios de pago aceptan?', 'Yape, Plin, tarjetas. Retenemos hasta tu confirmación.'],
+        ['¿Qué pasa si el servicio sale mal?', 'Soporte media la disputa y retiene fondos.'],
+        ['¿En qué zonas operan?', 'Lima Metropolitana, expansión a Arequipa, Trujillo y Chiclayo.'],
+        ['¿Cómo obtener Top Rated?', 'Rating ≥ 4.8 + 20 servicios = insignia automática.']
+    ];
+    for (var mfq = 0; mfq < mFaqs.length; mfq++) {
+        var mFaqItem = makeFrame(mFaqList, {
+            bg: mfq === 0 ? '#FFFFFF' : '#F3F4F6',
+            radius: 10,
+            dir: 'VERTICAL',
+            primaryAlign: 'MIN', counterAlign: 'MIN',
+            gap: 6, padding: 14,
+            primarySizing: 'AUTO', counterSizing: 'FIXED',
+            w: 343,
+            shadow: mfq === 0 ? 'Shadow/md' : null
+        });
+        var mQRow = makeFrame(mFaqItem, {
+            bg: null, dir: 'HORIZONTAL',
+            primaryAlign: 'SPACE_BETWEEN', counterAlign: 'CENTER',
+            gap: 8, primarySizing: 'FIXED', counterSizing: 'AUTO',
+            w: 315
+        });
+        mQRow.fills = [];
+        makeText(mQRow, mFaqs[mfq][0], { size: 14, weight: 'Semi Bold', color: '#1F2937', w: 280 });
+        makeText(mQRow, mfq === 0 ? '−' : '+', { size: 20, weight: 'Bold', color: '#6366F1' });
+        if (mfq === 0) {
+            makeText(mFaqItem, mFaqs[mfq][1], { size: 13, weight: 'Regular', color: '#6B7280', w: 315 });
+        }
+    }
+
+    // -------- Pre-registro mobile
+    var mForm = sectionM(mobile, { name: 'Pre-registro', bgGradient: ['#EC4899', '#10B981', 135], h: 1100 });
+    var mFormCard = makeFrame(mForm, {
+        bg: '#FFFFFF', radius: 16,
+        dir: 'VERTICAL',
+        primaryAlign: 'MIN', counterAlign: 'CENTER',
+        padding: 20, gap: 14,
+        primarySizing: 'AUTO', counterSizing: 'FIXED',
+        w: 343, shadow: 'Shadow/xl'
+    });
+    makeText(mFormCard, 'Déjanos tus datos', {
+        size: 22, weight: 'Bold', color: '#1F2937', align: 'CENTER', w: 303
+    });
+    makeText(mFormCard, 'Te avisamos cuando abramos el registro.', {
+        size: 13, weight: 'Regular', color: '#6B7280', align: 'CENTER', w: 303
+    });
+    var mToggle = makeFrame(mFormCard, {
+        bg: '#F3F4F6', radius: 10,
+        dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        padding: 3, gap: 3,
+        primarySizing: 'FIXED', counterSizing: 'AUTO',
+        w: 303
+    });
+    var mTogCli = makeFrame(mToggle, {
+        bg: '#FFFFFF', radius: 8,
+        dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 10, gap: 6,
+        primarySizing: 'FIXED', counterSizing: 'AUTO',
+        w: 148, shadow: 'Shadow/sm'
+    });
+    makeText(mTogCli, '👤 Cliente', { size: 12, weight: 'Semi Bold', color: '#6366F1' });
+    var mTogTra = makeFrame(mToggle, {
+        bg: null, radius: 8,
+        dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 10, gap: 6,
+        primarySizing: 'FIXED', counterSizing: 'AUTO',
+        w: 148
+    });
+    mTogTra.fills = [];
+    makeText(mTogTra, '💼 Trabajador', { size: 12, weight: 'Semi Bold', color: '#6B7280' });
+
+    var mFormFields = [
+        ['Nombre completo', ''],
+        ['Correo electrónico', 'tu@correo.com'],
+        ['Teléfono (WhatsApp)', '+51 9XX XXX XXX'],
+        ['Distrito', 'Selecciona tu distrito ▾']
+    ];
+    for (var mff = 0; mff < mFormFields.length; mff++) {
+        var mFld = makeFrame(mFormCard, {
+            bg: null, dir: 'VERTICAL',
+            primaryAlign: 'MIN', counterAlign: 'MIN',
+            gap: 4, primarySizing: 'AUTO', counterSizing: 'FIXED',
+            w: 303
+        });
+        mFld.fills = [];
+        makeText(mFld, mFormFields[mff][0], { size: 12, weight: 'Semi Bold', color: '#1F2937' });
+        var mInput = makeFrame(mFld, {
+            bg: '#FFFFFF', stroke: '#E5E7EB', strokeWeight: 1,
+            radius: 8, dir: 'HORIZONTAL',
+            primaryAlign: 'MIN', counterAlign: 'CENTER',
+            paddingV: 10, paddingH: 12,
+            primarySizing: 'FIXED', counterSizing: 'AUTO',
+            w: 303
+        });
+        makeText(mInput, mFormFields[mff][1], { size: 13, weight: 'Regular', color: '#9CA3AF' });
+    }
+
+    var mSubmit = makeFrame(mFormCard, {
+        bg: null, bgGradient: ['#6366F1', '#4F46E5', 135],
+        radius: 8, dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 14, primarySizing: 'FIXED', counterSizing: 'AUTO',
+        w: 303, shadow: 'Shadow/md'
+    });
+    makeText(mSubmit, 'Quiero ser de los primeros', { size: 14, weight: 'Semi Bold', color: '#FFFFFF' });
+
+    // -------- Footer mobile
+    var mFooter = sectionM(mobile, { name: 'Footer', bg: '#1F2937', h: 900, padV: 32, gap: 20 });
+    var mFooterData = [
+        ['Ya Quedó', ['Transformando servicios locales en el Perú.', '🔵 f  t  in  ig']],
+        ['Enlaces rápidos', ['Inicio', 'Cómo funciona', 'Beneficios', 'Testimonios']],
+        ['Servicios', ['Electricistas', 'Gasfiteros', 'Cuidadores', 'Técnicos']],
+        ['Contacto', ['hola@yaquedo.com', '+51 9XX XXX XXX', 'Centro de ayuda']],
+        ['Legal', ['Términos y condiciones', 'Política de privacidad', 'Política de cookies', 'Libro de reclamaciones']]
+    ];
+    for (var mfc = 0; mfc < mFooterData.length; mfc++) {
+        var mFCol = makeFrame(mFooter, {
+            bg: null, dir: 'VERTICAL',
+            primaryAlign: 'MIN', counterAlign: 'CENTER',
+            gap: 8, primarySizing: 'AUTO', counterSizing: 'FIXED',
+            w: 343
+        });
+        mFCol.fills = [];
+        makeText(mFCol, mFooterData[mfc][0], { size: 16, weight: 'Bold', color: '#818CF8', align: 'CENTER' });
+        for (var mfi = 0; mfi < mFooterData[mfc][1].length; mfi++) {
+            if (!mFooterData[mfc][1][mfi]) continue;
+            makeText(mFCol, mFooterData[mfc][1][mfi], {
+                size: 13, weight: 'Regular', color: '#FFFFFF', opacity: 0.8, align: 'CENTER', w: 343
+            });
+        }
+    }
+    var mFootBottom = makeFrame(mFooter, {
+        bg: null, dir: 'HORIZONTAL',
+        primaryAlign: 'CENTER', counterAlign: 'CENTER',
+        paddingV: 12, primarySizing: 'FIXED', counterSizing: 'AUTO',
+        w: 343
+    });
+    mFootBottom.fills = [];
+    mFootBottom.strokes = [solidFill('#FFFFFF', 0.1)];
+    mFootBottom.strokeTopWeight = 1;
+    mFootBottom.strokeWeight = 0;
+    mFootBottom.strokeAlign = 'INSIDE';
+    makeText(mFootBottom, '© 2026 Ya Quedó · TetraDev', {
+        size: 11, weight: 'Regular', color: '#FFFFFF', opacity: 0.8, align: 'CENTER'
+    });
+
     // =========================================================================
-    // 10) FINAL — zoom y cierre
+    // 11) FINAL — zoom y cierre
     // =========================================================================
     try {
-        figma.viewport.scrollAndZoomIntoView([landing]);
+        figma.viewport.scrollAndZoomIntoView([landing, mobile]);
     } catch (e) { /* noop */ }
 
-    figma.closePlugin('✅ Ya Quedó v2 listo: Design System + Button/Primary + Button/Secondary + Navbar/Desktop + Desktop Landing con 14 secciones pobladas + Mobile Landing skeleton. Revisa el panel Assets para ver los styles.');
+    figma.closePlugin('✅ Ya Quedó v3 listo: Design System + Button/Primary + Button/Secondary + Navbar/Desktop + Navbar/Mobile + Desktop Landing (14 secciones pobladas) + Mobile Landing (14 secciones pobladas).');
 })().catch(function (err) {
     var msg = err && err.message ? err.message : String(err);
     console.error(err);
