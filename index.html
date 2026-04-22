@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es-419" data-theme="light">
+<head>
+    <!-- Meta datos básicos para SEO y responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6366F1">
+    <title data-i18n="meta.title">Ya Quedó · Encuentra servicios locales al instante</title>
+    <meta name="description" data-i18n-attr="content" data-i18n="meta.description"
+          content="Marketplace de servicios locales hipersegmentado. Conecta clientes con trabajadores independientes de confianza en el Perú.">
+
+    <!-- Favicon dinámico con SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%236366F1'/><text x='50' y='65' font-size='40' fill='white' text-anchor='middle'>YQ</text></svg>">
+
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Font Awesome para iconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Analytics 4 (US-10) — reemplazar G-XXXXXXX por el ID real -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXX', { 'anonymize_ip': true });
+    </script>
+</head>
+<body>
+    <!-- Skip link a11y: primer elemento focusable para lectores de pantalla / Tab -->
+    <a class="skip-link" href="#main" data-i18n="a11y.skip">Saltar al contenido principal</a>
+    <!-- ======== BARRA DE NAVEGACIÓN ======== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Principal">
+        <div class="nav-container">
+            <!-- Logo principal de la marca -->
+            <a href="#inicio" class="logo" aria-label="Ya Quedó, ir al inicio">Ya Quedó</a>
+
+            <!-- Menú principal de navegación -->
+            <ul class="nav-menu" id="navMenu" role="menubar">
+                <li role="none"><a href="#inicio" class="nav-link" role="menuitem" data-i18n="nav.home">Inicio</a></li>
+                <li role="none"><a href="#servicios" class="nav-link" role="menuitem" data-i18n="nav.services">Servicios</a></li>
+                <li role="none"><a href="#como-funciona" class="nav-link" role="menuitem" data-i18n="nav.howItWorks">Cómo funciona</a></li>
+                <li role="none"><a href="#trabajadores" class="nav-link" role="menuitem" data-i18n="nav.workers">Trabajadores</a></li>
+                <li role="none"><a href="#faq" class="nav-link" role="menuitem" data-i18n="nav.faq">FAQ</a></li>
+                <li role="none"><a href="#login" class="nav-link" role="menuitem" data-i18n="nav.login">Iniciar sesión</a></li>
+                <li role="none"><a href="#pre-registro" class="btn btn-primary" role="menuitem" data-i18n="nav.register">Registrarse</a></li>
+                <!-- Language switcher (i18n) -->
+                <li role="none" class="lang-switcher">
+                    <button type="button" class="lang-btn active" data-lang="es" aria-label="Cambiar a español" aria-pressed="true">ES</button>
+                    <button type="button" class="lang-btn" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+                </li>
+            </ul>
+
+            <!-- Menú hamburguesa para dispositivos móviles -->
+            <button class="hamburger" id="hamburger" type="button"
+                    aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main" role="main">
+
+    <!-- ======== SECCIÓN PRINCIPAL (HERO) ======== -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-content">
+            <h1 id="hero-title" data-i18n="hero.title">Encuentra el servicio que necesitas, al instante</h1>
+
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+                Conectamos personas con trabajadores independientes de confianza en el Perú.
+                Rápido, seguro y transparente.
+            </p>
+
+            <div class="hero-buttons">
+                <div class="btn-group" role="group" aria-label="Acciones principales">
+                    <a href="#servicios" class="btn btn-primary" data-i18n="hero.ctaSearch">Buscar servicio</a>
+                    <a href="#pre-registro" class="btn btn-secondary" data-user-type="trabajador" data-i18n="hero.ctaOffer">Ofrecer mis servicios</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== PROBLEMA ======== -->
+    <section class="section problem" id="problema" aria-labelledby="problem-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="problem-title" data-i18n="problem.title">El desafío que enfrentamos</h2>
+                <p data-i18n="problem.subtitle">La informalidad laboral en el Perú afecta a millones de trabajadores y clientes</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-icon"><i class="fas fa-search"></i></div>
+                    <h3>Dificultad para encontrar servicios</h3>
+                    <p>Los clientes pierden tiempo y esfuerzo buscando profesionales confiables y verificados.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="problem-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <h3>Precios poco transparentes</h3>
+                    <p>Falta de claridad en los costos y temor a estafas o trabajos mal ejecutados.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="problem-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Informalidad laboral</h3>
+                    <p>Más del 60% de los trabajadores en LATAM no tienen acceso a beneficios laborales ni formalización.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== SOLUCIÓN ======== -->
+    <section class="section solution" id="solucion" aria-labelledby="solution-title">
+        <div class="container">
+            <div class="solution-content">
+                <div class="solution-text fade-in">
+                    <h3 data-i18n="solution.eyebrow">La solución: Ya Quedó</h3>
+                    <h2 id="solution-title" data-i18n="solution.title">Transformando la forma de conectar servicios locales</h2>
+                    <p>
+                        Creamos una plataforma que revoluciona el mercado de servicios informales, 
+                        ofreciendo confianza, rapidez y oportunidades de formalización para todos.
+                    </p>
+                    <ul class="solution-features">
+                        <li>Verificación de identidad y habilidades</li>
+                        <li>Sistema de calificación transparente</li>
+                        <li>Pagos seguros y garantizados</li>
+                        <li>Capacitación y certificación interna</li>
+                        <li>Geolocalización precisa</li>
+                    </ul>
+                </div>
+                <div class="solution-image fade-in">
+                    <div style="font-size: 3rem; color: white; font-weight: bold;">YQ</div>
+                    <h3>Tecnología para el progreso</h3>
+                    <p style="color: black;">Utilizamos IA y algoritmos avanzados para conectar las personas correctas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== CÓMO FUNCIONA ======== -->
+    <section class="section how-it-works" id="como-funciona" aria-labelledby="how-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="how-title" data-i18n="how.title">Así de fácil funciona</h2>
+                <p data-i18n="how.subtitle">En solo 4 pasos simples puedes encontrar o ofrecer servicios</p>
+            </div>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Regístrate gratis</h3>
+                    <p>Crea tu perfil en menos de 2 minutos. Verificamos tu identidad para mayor seguridad.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-search-location"></i></div>
+                    <h3>Busca o publica</h3>
+                    <p>Encuentra profesionales cercanos o publica tu servicio. Nuestro algoritmo te conecta al instante.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Coordina y confirma</h3>
+                    <p>Chatea directamente, acuerda detalles y confirma el servicio con pago seguro.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-star"></i></div>
+                    <h3>Califica y repite</h3>
+                    <p>Al finalizar, califica el servicio y ayuda a construir una comunidad más confiable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== SERVICIOS / CATEGORÍAS (US-03) ======== -->
+    <section class="section services" id="servicios" aria-labelledby="services-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="services-title" data-i18n="services.title">Servicios disponibles</h2>
+                <p data-i18n="services.subtitle">Más de 6 categorías iniciales para resolver lo que necesites en casa</p>
+            </div>
+            <div class="services-grid">
+                <a href="#pre-registro" class="service-card fade-in" data-service="electricidad">
+                    <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Electricidad</h3>
+                    <p>Instalación, reparación y mantenimiento eléctrico certificado.</p>
+                </a>
+                <a href="#pre-registro" class="service-card fade-in" data-service="gasfiteria">
+                    <div class="service-icon"><i class="fas fa-wrench"></i></div>
+                    <h3>Gasfitería</h3>
+                    <p>Fugas, desatoros y reparación de tuberías con garantía.</p>
+                </a>
+                <a href="#pre-registro" class="service-card fade-in" data-service="pintura">
+                    <div class="service-icon"><i class="fas fa-paint-roller"></i></div>
+                    <h3>Pintura</h3>
+                    <p>Interiores y exteriores con acabados profesionales.</p>
+                </a>
+                <a href="#pre-registro" class="service-card fade-in" data-service="cerrajeria">
+                    <div class="service-icon"><i class="fas fa-key"></i></div>
+                    <h3>Cerrajería</h3>
+                    <p>Emergencias 24/7, cambio de cerraduras y llaves.</p>
+                </a>
+                <a href="#pre-registro" class="service-card fade-in" data-service="electrodomesticos">
+                    <div class="service-icon"><i class="fas fa-blender"></i></div>
+                    <h3>Electrodomésticos</h3>
+                    <p>Reparación de lavadoras, refrigeradoras, microondas y más.</p>
+                </a>
+                <a href="#pre-registro" class="service-card fade-in" data-service="limpieza-tecnica">
+                    <div class="service-icon"><i class="fas fa-broom"></i></div>
+                    <h3>Limpieza técnica</h3>
+                    <p>Limpieza profunda de tanques, aires acondicionados y fachadas.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== BENEFICIOS ======== -->
+    <section class="section benefits" id="beneficios" aria-labelledby="benefits-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="benefits-title" data-i18n="benefits.title">Beneficios para todos</h2>
+                <p data-i18n="benefits.subtitle">Diseñado pensando tanto en clientes como en trabajadores</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-group fade-in">
+                    <h3><i class="fas fa-bullseye"></i> Para Clientes</h3>
+                    <ul class="benefit-list">
+                        <li>Ahorra tiempo buscando profesionales verificados</li>
+                        <li>Precios transparentes y competitivos</li>
+                        <li>Protección con pagos seguros</li>
+                        <li>Acceso a calificaciones reales de otros usuarios</li>
+                        <li>Atención inmediata y geolocalización precisa</li>
+                        <li>Garantía de satisfacción en cada servicio</li>
+                    </ul>
+                </div>
+                <div class="benefit-group fade-in">
+                    <h3><i class="fas fa-briefcase"></i> Para Trabajadores</h3>
+                    <ul class="benefit-list">
+                        <li>Acceso a más clientes sin costo de marketing</li>
+                        <li>Recibe pagos de forma segura y rápida</li>
+                        <li>Construye tu reputación profesional</li>
+                        <li>Capacitación gratuita y certificaciones</li>
+                        <li>Flexibilidad para elegir tus horarios</li>
+                        <li>Camino hacia la formalización laboral</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== CARACTERÍSTICAS ======== -->
+    <section class="section features" id="caracteristicas" aria-labelledby="features-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="features-title" data-i18n="features.title">Características que nos hacen únicos</h2>
+                <p data-i18n="features.subtitle">Tecnología de punta al servicio de la comunidad</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature fade-in">
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Geolocalización</h3>
+                    <p>Encuentra profesionales cerca de tu ubicación en tiempo real</p>
+                </div>
+                <div class="feature fade-in">
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
+                    <h3>Sistema de Reputación</h3>
+                    <p>Calificaciones transparentes basadas en experiencias reales</p>
+                </div>
+                <div class="feature fade-in">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Pagos Seguros</h3>
+                    <p>Transacciones protegidas con reembolso garantizado</p>
+                </div>
+                <div class="feature fade-in">
+                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Perfiles Verificados</h3>
+                    <p>Verificación de identidad y habilidades de cada profesional</p>
+                </div>
+                <div class="feature fade-in" style="text-align: center;">
+                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Capacitación</h3>
+                    <p>Cursos gratuitos para mejorar tus habilidades y certificaciones</p>
+                </div>
+                <div class="feature fade-in" style="text-align: center;">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Chat Integrado</h3>
+                    <p>Comunicación directa y segura entre clientes y trabajadores</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== SECCIÓN SEGMENTADA PARA TRABAJADORES (US-08) ======== -->
+    <section class="section workers" id="trabajadores" aria-labelledby="workers-title">
+        <div class="container">
+            <div class="workers-content">
+                <div class="workers-text fade-in">
+                    <span class="eyebrow" data-i18n="workers.eyebrow">Para trabajadores independientes</span>
+                    <h2 id="workers-title" data-i18n="workers.title">Más clientes, pagos seguros y reputación que crece contigo</h2>
+                    <p>
+                        Si eres electricista, gasfitero, pintor, cerrajero o técnico, Ya Quedó te conecta
+                        con clientes verificados de tu zona. Tú defines tus tarifas, nosotros garantizamos el cobro.
+                    </p>
+                    <ul class="workers-benefits">
+                        <li><i class="fas fa-users"></i> Flujo constante de clientes en tu distrito</li>
+                        <li><i class="fas fa-shield-halved"></i> Pago garantizado por cada servicio completado</li>
+                        <li><i class="fas fa-medal"></i> Insignias y ranking que aumentan tu visibilidad</li>
+                        <li><i class="fas fa-graduation-cap"></i> Capacitaciones gratuitas con certificación</li>
+                        <li><i class="fas fa-mobile-screen"></i> Agenda y cotizaciones desde tu celular</li>
+                    </ul>
+                    <a href="#pre-registro" class="btn btn-primary" data-user-type="trabajador">
+                        Quiero ofrecer mis servicios
+                    </a>
+                </div>
+                <div class="workers-stats fade-in">
+                    <div class="worker-stat-card">
+                        <div class="stat-big">+40%</div>
+                        <p>Ingresos promedio tras 3 meses en la plataforma</p>
+                    </div>
+                    <div class="worker-stat-card">
+                        <div class="stat-big">48h</div>
+                        <p>Tiempo máximo de verificación de identidad</p>
+                    </div>
+                    <div class="worker-stat-card">
+                        <div class="stat-big">0%</div>
+                        <p>Costo de registro y uso básico de la plataforma</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== IMPACTO SOCIAL ======== -->
+    <section class="section impact" id="impacto" aria-labelledby="impact-title">
+        <div class="container">
+            <div class="impact-content fade-in">
+                <h2 id="impact-title" data-i18n="impact.title">Impacto social real</h2>
+                <p style="color: white !important;">
+                    No solo somos una plataforma tecnológica, somos un movimiento para transformar 
+                    la economía informal en oportunidades reales de progreso.
+                </p>
+                <div class="impact-stats">
+                    <div class="stat">
+                        <div class="stat-number">60%+</div>
+                        <div class="stat-label">Trabajadores informales en LATAM</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2M+</div>
+                        <div class="stat-label">Servicios conectados</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Países en expansión</div>
+                    </div>
+                    <div class="stat" style="text-align: center;">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfacción de usuarios</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== TESTIMONIOS ======== -->
+    <section class="section testimonials" id="testimonios" aria-labelledby="testimonials-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="testimonials-title" data-i18n="testimonials.title">Lo que dicen nuestros usuarios</h2>
+                <p data-i18n="testimonials.subtitle">Historias reales de transformación y éxito</p>
+            </div>
+            <!-- Rotación automática cada 5s (US-04) — el JS destaca un testimonio a la vez en móvil -->
+            <div class="testimonials-grid" id="testimonialsGrid" data-rotate="5000">
+                <div class="testimonial fade-in" data-index="0">
+                    <p class="testimonial-text">
+                        "Gracias a Ya Quedó pasé de tener 2 clientes por semana a más de 20.
+                        Mi ingreso se triplicó y ahora puedo darles mejor futuro a mis hijos."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" aria-hidden="true">MC</div>
+                        <div class="author-info">
+                            <h4>María Carmen Rodríguez</h4>
+                            <p>Electricista · San Miguel, Lima</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial fade-in" data-index="1">
+                    <p class="testimonial-text">
+                        "Encontré un gasfitero confiable en 10 minutos. El servicio fue excelente,
+                        el precio justo y la plataforma me protegió de principio a fin."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" aria-hidden="true">JL</div>
+                        <div class="author-info">
+                            <h4>Juan López</h4>
+                            <p>Cliente · Surco, Lima</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial fade-in" data-index="2">
+                    <p class="testimonial-text">
+                        "La capacitación que me dieron me ayudó a profesionalizar mi servicio.
+                        Ahora tengo insignia Top Rated y los clientes me prefieren por eso."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" aria-hidden="true">RG</div>
+                        <div class="author-info">
+                            <h4>Roberto Gómez</h4>
+                            <p>Técnico · Los Olivos, Lima</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== FAQ (US-06) ======== -->
+    <section class="section faq" id="faq" aria-labelledby="faq-title">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 id="faq-title" data-i18n="faq.title">Preguntas frecuentes</h2>
+                <p data-i18n="faq.subtitle">Resolvemos las dudas más comunes antes de que empieces a usar Ya Quedó</p>
+            </div>
+            <div class="faq-list" id="faqList">
+                <details class="faq-item fade-in">
+                    <summary>¿Cómo sé que un trabajador es confiable?</summary>
+                    <p>Todos los trabajadores pasan por un proceso de verificación de DNI y selfie. Además,
+                        sus reseñas provienen únicamente de servicios ejecutados a través de la plataforma.</p>
+                </details>
+                <details class="faq-item fade-in">
+                    <summary>¿Cuánto cuesta registrarme?</summary>
+                    <p>El registro es totalmente gratuito tanto para usuarios como para trabajadores.
+                        Solo cobramos una comisión por servicio completado al trabajador.</p>
+                </details>
+                <details class="faq-item fade-in">
+                    <summary>¿Qué medios de pago aceptan?</summary>
+                    <p>Aceptamos Yape, Plin, tarjetas de débito y crédito. El dinero se retiene hasta que
+                        confirmes que el servicio fue ejecutado correctamente.</p>
+                </details>
+                <details class="faq-item fade-in">
+                    <summary>¿Qué pasa si el servicio sale mal?</summary>
+                    <p>Puedes reportarlo desde la app. Nuestro equipo de soporte media la disputa y,
+                        si corresponde, retenemos los fondos hasta resolver el caso.</p>
+                </details>
+                <details class="faq-item fade-in">
+                    <summary>¿En qué zonas opera Ya Quedó?</summary>
+                    <p>Iniciamos en Lima Metropolitana (San Miguel, Magdalena, Pueblo Libre, Jesús María,
+                        Lince, Miraflores, Surco, San Borja, La Molina) con expansión a Arequipa, Trujillo
+                        y Chiclayo en las siguientes fases.</p>
+                </details>
+                <details class="faq-item fade-in">
+                    <summary>¿Cómo obtengo la insignia Top Rated como trabajador?</summary>
+                    <p>Al mantener una calificación promedio ≥ 4.8 con al menos 20 servicios completados
+                        obtienes la insignia automáticamente. Se recalcula cada semana.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== PRE-REGISTRO / FORMULARIO DE CONTACTO (US-05, US-08 CTA) ======== -->
+    <section class="cta" id="pre-registro" aria-labelledby="preregister-title">
+        <div class="container">
+            <div class="pre-register fade-in">
+                <div class="pre-register-head">
+                    <h2 id="preregister-title" data-i18n="form.title">Déjanos tus datos y te avisamos cuando abramos el registro</h2>
+                    <p data-i18n="form.subtitle">Serás de los primeros en acceder y recibirás un beneficio exclusivo de lanzamiento.</p>
+                </div>
+                <form class="pre-register-form" id="preRegisterForm" novalidate>
+                    <div class="form-toggle" role="tablist" aria-label="Tipo de registro">
+                        <button type="button" class="toggle-option active" data-type="usuario" role="tab" aria-selected="true">
+                            <i class="fas fa-user"></i> Soy cliente
+                        </button>
+                        <button type="button" class="toggle-option" data-type="trabajador" role="tab" aria-selected="false">
+                            <i class="fas fa-briefcase"></i> Soy trabajador
+                        </button>
+                    </div>
+                    <input type="hidden" name="userType" id="userType" value="usuario">
+
+                    <div class="form-row">
+                        <label class="form-field">
+                            <span>Nombre completo</span>
+                            <input type="text" name="fullName" required minlength="3" autocomplete="name">
+                        </label>
+                        <label class="form-field">
+                            <span>Correo electrónico</span>
+                            <input type="email" name="email" required autocomplete="email" placeholder="tu@correo.com">
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-field">
+                            <span>Teléfono (WhatsApp)</span>
+                            <input type="tel" name="phone" required autocomplete="tel" placeholder="+51 9XX XXX XXX">
+                        </label>
+                        <label class="form-field">
+                            <span>Distrito</span>
+                            <select name="district" required>
+                                <option value="">Selecciona tu distrito</option>
+                                <option>San Miguel</option>
+                                <option>Magdalena</option>
+                                <option>Pueblo Libre</option>
+                                <option>Jesús María</option>
+                                <option>Lince</option>
+                                <option>Miraflores</option>
+                                <option>Surco</option>
+                                <option>San Borja</option>
+                                <option>La Molina</option>
+                                <option>Otro</option>
+                            </select>
+                        </label>
+                    </div>
+                    <label class="form-field form-field-full" data-only-trabajador>
+                        <span>Oficio principal</span>
+                        <select name="trade">
+                            <option value="">Selecciona tu oficio</option>
+                            <option>Electricidad</option>
+                            <option>Gasfitería</option>
+                            <option>Pintura</option>
+                            <option>Cerrajería</option>
+                            <option>Electrodomésticos</option>
+                            <option>Limpieza técnica</option>
+                            <option>Otro</option>
+                        </select>
+                    </label>
+                    <label class="form-consent">
+                        <input type="checkbox" name="consent" required aria-required="true">
+                        <span>Acepto los <a href="terms.html">Términos</a> y la <a href="privacy.html">Política de privacidad</a>.</span>
+                    </label>
+                    <button type="submit" class="btn btn-primary btn-submit">Quiero ser de los primeros</button>
+                    <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    </main>
+    <!-- ======== FOOTER ======== -->
+    <footer class="footer" role="contentinfo" aria-label="Información del sitio">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ya Quedó</h3>
+                    <p>Transformando el mercado de servicios locales en Latinoamérica.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#como-funciona">Cómo funciona</a></li>
+                        <li><a href="#beneficios">Beneficios</a></li>
+                        <li><a href="#testimonios">Testimonios</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Electricistas</a></li>
+                        <li><a href="#">Plomeros</a></li>
+                        <li><a href="#">Cuidadores</a></li>
+                        <li><a href="#">Técnicos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:hola@yaquedo.com">hola@yaquedo.com</a></li>
+                        <li><a href="tel:+5119XXXXXXXX">+51 9XX XXX XXX</a></li>
+                        <li><a href="#ayuda">Centro de ayuda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="footer.legal">Legal</h3>
+                    <ul>
+                        <li><a href="terms.html" data-i18n="footer.terms">Términos y condiciones</a></li>
+                        <li><a href="privacy.html" data-i18n="footer.privacy">Política de privacidad</a></li>
+                        <li><a href="privacy.html#cookies" data-i18n="footer.cookies">Política de cookies</a></li>
+                        <li><a href="terms.html#libro-reclamaciones" data-i18n="footer.complaints">Libro de reclamaciones</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ya Quedó · TetraDev. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======== JAVASCRIPT ======== -->
+    <script src="i18n.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

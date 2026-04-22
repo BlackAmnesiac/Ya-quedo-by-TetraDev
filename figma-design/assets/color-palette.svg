@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300">
+  <!-- Primary -->
+  <rect x="20" y="20" width="140" height="140" rx="12" fill="#6366F1"/>
+  <text x="90" y="180" font-family="Inter" font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle">primary</text>
+  <text x="90" y="200" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">#6366F1</text>
+
+  <rect x="180" y="20" width="140" height="140" rx="12" fill="#4F46E5"/>
+  <text x="250" y="180" font-family="Inter" font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle">primary-dark</text>
+  <text x="250" y="200" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">#4F46E5</text>
+
+  <rect x="340" y="20" width="140" height="140" rx="12" fill="#818CF8"/>
+  <text x="410" y="180" font-family="Inter" font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle">primary-light</text>
+  <text x="410" y="200" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">#818CF8</text>
+
+  <rect x="500" y="20" width="140" height="140" rx="12" fill="#EC4899"/>
+  <text x="570" y="180" font-family="Inter" font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle">secondary</text>
+  <text x="570" y="200" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">#EC4899</text>
+
+  <rect x="660" y="20" width="140" height="140" rx="12" fill="#10B981"/>
+  <text x="730" y="180" font-family="Inter" font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle">accent</text>
+  <text x="730" y="200" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">#10B981</text>
+
+  <rect x="820" y="20" width="140" height="140" rx="12" fill="#1F2937"/>
+  <text x="890" y="180" font-family="Inter" font-size="14" font-weight="600" fill="#1F2937" text-anchor="middle">dark</text>
+  <text x="890" y="200" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">#1F2937</text>
+
+  <!-- row 2 -->
+  <rect x="20" y="220" width="140" height="60" rx="12" fill="#6B7280"/>
+  <text x="90" y="294" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">gray · #6B7280</text>
+
+  <rect x="180" y="220" width="140" height="60" rx="12" fill="#F3F4F6" stroke="#E5E7EB"/>
+  <text x="250" y="294" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">light-gray · #F3F4F6</text>
+
+  <rect x="340" y="220" width="140" height="60" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="410" y="294" font-family="Inter" font-size="12" fill="#6B7280" text-anchor="middle">white · #FFFFFF</text>
+</svg>

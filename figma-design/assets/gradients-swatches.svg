@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 260" width="780" height="260">
+  <defs>
+    <linearGradient id="gPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="gAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="gHero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667EEA"/>
+      <stop offset="100%" stop-color="#764BA2"/>
+    </linearGradient>
+  </defs>
+  <rect x="20" y="20" width="220" height="180" rx="16" fill="url(#gPrimary)"/>
+  <text x="130" y="220" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">gradient/primary</text>
+  <text x="130" y="240" font-family="Inter, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">#6366F1 → #4F46E5</text>
+
+  <rect x="280" y="20" width="220" height="180" rx="16" fill="url(#gAccent)"/>
+  <text x="390" y="220" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">gradient/accent</text>
+  <text x="390" y="240" font-family="Inter, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">#EC4899 → #10B981</text>
+
+  <rect x="540" y="20" width="220" height="180" rx="16" fill="url(#gHero)"/>
+  <text x="650" y="220" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">gradient/hero</text>
+  <text x="650" y="240" font-family="Inter, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">#667EEA → #764BA2</text>
+</svg>
